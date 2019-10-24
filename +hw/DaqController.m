@@ -42,7 +42,7 @@ classdef DaqController < handle
     ChannelNames = {} % name to refer to each channel
     %Signal generator for each channel. Each should be an object of class
     %hw.ControlSignalGenerator, for generating command waveforms.
-    SignalGenerators = hw.PulseSwitcher.empty
+    SignalGenerators = hw.ControlSignalGenerator.empty;
     DaqIds = 'Dev1' % device ID's for each channel, e.g. 'Dev1'
     DaqChannelIds = {} % DAQ's ID for each channel, e.g. 'ao0'
     SampleRate = 1000 % output sample rate ("scans/sec") of the daq device
