@@ -44,6 +44,7 @@ gammaCalibrationKey = KbName('g');
 timelineToggleKey = KbName('t');
 toggleBackground = KbName('b');
 rewardId = 1;
+rewardContinuous = 0;
 
 %% Initialisation
 % Pull latest changes from remote
@@ -151,13 +152,12 @@ while running
   % check for reward toggle
   if firstPress(rewardToggleKey) > 0
     log('Toggling reward valve');
-    curr = rig.daqController.Value(rewardId);
-    sig = rig.daqController.SignalGenerators(rewardId);
-    if curr == sig.OpenValue
-      rig.daqController.Value(rewardId) = sig.ClosedValue;
-    else
-      rig.daqController.Value(rewardId) = sig.OpenValue;
-    end
+    rewardContinuous = ~rewardContinuous;
+  end
+  
+  if rewardContinuous > 0
+      def = [rig.daqController.SignalGenerators(rewardId).DefaultCommand];
+      rig.daqController.command(def);
   end
   
   % check for reward pulse
