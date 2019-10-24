@@ -24,8 +24,8 @@ classdef RewardPumpControl < hw.ControlSignalGenerator & handle
               'Requested reward size %0.2fuL is not a multiple of the microLitre resolution %0.2fuL',...
               microLitres,obj.microLitresPerMicroStep);
           
-          numSteps = microLitres/obj.microLitresPerMicroStep;
-          
+          numSteps = round(microLitres/obj.microLitresPerMicroStep);
+
           samples = repmat([0;1],numSteps,1);
           samples = [samples; 0];
       end
