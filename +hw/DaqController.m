@@ -91,7 +91,9 @@ classdef DaqController < handle
           end
         end
         v = [obj.SignalGenerators.DefaultValue];
-        obj.DaqSession.outputSingleScan(v(obj.AnalogueChannelsIdx));
+        if any(obj.AnalogueChannelsIdx)
+            obj.DaqSession.outputSingleScan(v(obj.AnalogueChannelsIdx));
+        end
         if any(~obj.AnalogueChannelsIdx)
           obj.DigitalDaqSession.outputSingleScan(v(~obj.AnalogueChannelsIdx));
         end
