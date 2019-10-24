@@ -8,7 +8,7 @@ classdef RewardPumpControl < hw.ControlSignalGenerator & handle
     % by delivering multiple steps to the stepper motor.
     
     properties
-        microLitresPerMicroStep=0.17; %Amount of water delivered by one microstep of the motor
+        microLitresPerMicroStep=0.1715; %Amount of water delivered by one microstep of the motor
     end
   
   methods
@@ -21,7 +21,7 @@ classdef RewardPumpControl < hw.ControlSignalGenerator & handle
           %Function which outputs the set of digital out voltage pulses
           %required to output the water volume
           assert(mod(microLitres,obj.microLitresPerMicroStep)==0,...
-              'Requested reward size %0.2fuL is not a multiple of the microLitre resolution %0.2fuL',...
+              'Requested reward size %0.4fuL is not a multiple of the microLitre resolution %0.4fuL',...
               microLitres,obj.microLitresPerMicroStep);
           
           numSteps = round(microLitres/obj.microLitresPerMicroStep);
