@@ -14,6 +14,7 @@ classdef RewardPumpControl < hw.ControlSignalGenerator & handle
   methods
       function obj = RewardPumpControl()
           obj.DefaultValue = 0;
+          obj.DefaultCommand = obj.microLitresPerMicroStep*3;
       end
     
       function samples = waveform(obj, ~, microLitres)
