@@ -27,15 +27,15 @@ p.rigbox = fileparts(which('addRigboxPaths'));
 % Repository for local copy of everything generated on this rig
 p.localRepository = 'C:\LocalExpData';
 
-% Data are grouped by mouse name
-p.mainRepository = fullfile(server1Name, 'Data', 'Subjects');
+% Data are grouped by mouse name within the data directory
+p.mainRepository = fullfile(server1Name, 'Data');
 
 % Directory for organisation-wide configuration files
-p.globalConfig = fullfile(server1Name, 'Code', 'Rigging', 'config');
+p.globalConfig = fullfile(server1Name, 'Code', 'RigConfig');
 % Directory for rig-specific configuration files
 p.rigConfig = fullfile(p.globalConfig, rig);
 % Repository for all experiment definitions
-p.expDefinitions = fullfile(server1Name, 'Code', 'Rigging', 'ExpDefinitions');
+p.expDefinitions = fullfile(server1Name, 'Code', 'ExpDefinitions');
 
 %% Non-essential paths
 % Location of git for automatic updates
