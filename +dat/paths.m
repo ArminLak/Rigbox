@@ -19,7 +19,7 @@ if nargin < 1 || isempty(rig)
   rig = thishost;
 end
 
-server1Name = '\\WIN-AL003\B_SERVER';
+server1Name = '\\QNAP-AL001.dpag.ox.ac.uk';
 
 %% Essential paths
 % Path containing rigbox config folders
