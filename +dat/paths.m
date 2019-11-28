@@ -24,8 +24,19 @@ server1Name = '\\QNAP-AL001.dpag.ox.ac.uk';
 %% Essential paths
 % Path containing rigbox config folders
 p.rigbox = fileparts(which('addRigboxPaths'));
-% Repository for local copy of everything generated on this rig
-p.localRepository = 'C:\LocalExpData';
+% Repository for local copy of everything generated on this rig.
+% Automatically assign to largest hard disk
+drives = double('C'):double('Z');
+disk_size = nan(size(drives));
+for i = 1:length(drives)
+    drive = ['' drives(i) ':\'];
+    if exist(drive, 'dir') == 7
+        FileObj = java.io.File(drive);
+        disk_size(i) = FileObj.getTotalSpace;
+    end
+end
+[~,idx]=max(disk_size);
+p.localRepository = ['' drives(idx) ':\LocalExpData'];
 
 % Data are grouped by mouse name within the data directory
 p.mainRepository = fullfile(server1Name, 'Data');
