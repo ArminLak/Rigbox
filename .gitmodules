@@ -3,7 +3,7 @@
 	url = https://github.com/cortex-lab/alyx-matlab/
 [submodule "signals"]
 	path = signals
-	url = https://github.com/cortex-lab/signals
+	url = https://github.com/peterzh/signals
 [submodule "npy-matlab"]
 	path = npy-matlab
 	url = https://github.com/kwikteam/npy-matlab
