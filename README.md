@@ -35,7 +35,7 @@ Additionally, Rigbox works with a number of extra submodules (included):
 0. It is highly recommended to install Rigbox via git. If not already downloaded and installed, install [git](https://git-scm.com/download/win) (and the included minGW software environment and Git Bash MinTTY terminal emulator). After installing, launch the Git Bash terminal. 
 1. To install Rigbox, run the following commands in the Git Bash terminal to clone the repository from GitHub to your local machine.  (* *Note*: It is *not* recommended to clone directly into the MATLAB folder)
 ```
-git clone --recurse-submodules https://github.com/cortex-lab/Rigbox
+git clone --recurse-submodules https://github.com/arminlak/Rigbox
 ```
 2. Open MATLAB and run `addRigboxPaths.m` then restart the program.  *Note*: Do __not__ add all Rigbox folders and subfolders to the paths! 
 3. Set the correct paths on both computers by following the instructions in the '/docs/setup/paths_config' file.
