@@ -86,10 +86,8 @@ tls.tlObj = tlObj;
         tls.AlyxInstance = ai;
       case 'expstart'
         % create a file path & experiment ref based on experiment info
-        try % start Timeline
-          assert(~tlObj.IsRunning, ...
-            'Rigbox:tl:bindMpepServer:timelineAlreadyRunning', ...
-            'Timeline already started')
+        try
+          % start Timeline
           tlObj.start(info.expRef, tls.AlyxInstance);
           % re-record the UDP event in Timeline since it wasn't started
           % when we tried earlier. Treat it as having arrived at time zero.
@@ -175,3 +173,4 @@ tls.tlObj = tlObj;
   end
 
 end
+

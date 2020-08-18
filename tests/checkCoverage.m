@@ -11,24 +11,19 @@ function results = checkCoverage(testFile, funLoc)
 %    results (array) - array of test result objects
 %
 %  Examples:
-%    checkCoverage('cellflat') % Folder can be inferred
+%    checkCoverage('cellflat') % Folder can be inferred 
 %    checkCoverage('fun_package', fileparts(which('fun.run')))
-%    checkCoverage('fun_package', '+fun')
 %
 
 narginchk(1,2)
 if nargin == 1
   % Try to divine test function location
-  funLoc = fileparts(which(erase(testFile,'_test')));
+  funLoc = fileparts(which(strrep(testFile,'_test','')));
 end
 import matlab.unittest.TestRunner
 import matlab.unittest.plugins.CodeCoveragePlugin
 runner = TestRunner.withTextOutput;
-if funLoc(1) == '+'
-  plugin = CodeCoveragePlugin.forPackage(funLoc(2:end));
-else
-  plugin = CodeCoveragePlugin.forFolder(funLoc);
-end
+plugin = CodeCoveragePlugin.forFolder(funLoc);
 runner.addPlugin(plugin)
 tests = testsuite(testFile);
 results = runner.run(tests);

@@ -10,7 +10,7 @@ function updateLogEntry(subject, id, newEntry)
 
 % 2013-03 CB created
 
-if isfield(newEntry, 'AlyxInstance') && ~isempty(getOr(dat.paths, 'databaseURL'))
+if isfield(newEntry, 'AlyxInstance')
   % Update session narrative on Alyx
   if ~isempty(newEntry.comments) && ~strcmp(subject, 'default')
     try

@@ -1,8 +1,7 @@
 function h = parentFigure(h)
 %BUI.PARENTFIGURE Parent figure of graphics object
 %   f = BUI.PARENTFIGURE(h) Returns the parent figure, if any, of the
-%   graphics object with handle 'h'.  NB: For most purposes `ancestor` will
-%   suffice.
+%   graphics object with handle 'h'.
 %
 % Part of Burgbox
 

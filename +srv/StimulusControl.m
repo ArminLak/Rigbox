@@ -178,7 +178,7 @@ classdef StimulusControl < handle
     end
   end
   
-  methods (Access = protected)
+  methods %(Access = protected) %TODO Check everything works as protected
     function b = connected(obj)
       b = ~isempty(obj.Socket) && obj.Socket.isOpen();
     end
@@ -288,7 +288,7 @@ classdef StimulusControl < handle
   methods (Static)
     function errorOnFail(r)
       if iscell(r) && strcmp(r{1}, 'fail')
-        error(r{3:end})
+        error(r{3});
       end
     end
   end

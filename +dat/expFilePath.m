@@ -20,36 +20,25 @@ function [fullpath, filename] = expFilePath(varargin)
 
 % 2013-03 CB created
 
-assert(length(varargin) > 1, 'Rigbox:dat:expFilePath:NotEnoughInputs',...
-  'Not enough input arguments.')
+assert(length(varargin) > 1, 'Error: Not enough arguments supplied.')
 
 parsed = catStructs(regexp(varargin{1}, dat.expRefRegExp, 'names'));
 if isempty(parsed) % Subject, not ref
-  if nargin < 3
-    error('Rigbox:dat:expFilePath:NotEnoughInputs', ...
-      ['Not enough input arguments; check expRef formatted correcly ' ...
-      'or enter subject, date and sequence as separate arguments'])
-  elseif nargin == 3
-    error('Rigbox:dat:expFilePath:NotEnoughInputs', ...
-      'Not enough input arguments; missing file type')
-  elseif nargin > 4
-    location = varargin{5};
-    varargin(5) = [];
-  else
-    location = {};
-  end
-  typeIdx = 4;
+    if nargin > 4
+        location = varargin{5};
+        varargin(5) = [];
+    else
+        location = {};
+    end
+    typeIdx = 4;
 else % Ref, not subject
-  if nargin < 2
-    error('Rigbox:dat:expFilePath:NotEnoughInputs', ...
-      'Not enough input arguments; missing file type')
-  elseif nargin > 2
-    location = varargin{3};
-    varargin(3) = [];
-  else
-    location = {};
-  end
-  typeIdx = 2;
+    typeIdx = 2;
+    if nargin > 2
+        location = varargin{3};
+        varargin(3) = [];
+    else
+        location = {};
+    end
 end
 
 % tabulate the args to get complete rows

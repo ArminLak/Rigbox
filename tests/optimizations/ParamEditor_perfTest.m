@@ -1,6 +1,6 @@
-classdef (SharedTestFixtures={...
-    matlab.unittest.fixtures.PathFixture('../fixtures')})... % add 'fixtures' folder as test fixture
-    ParamEditor_perfTest < matlab.perftest.TestCase
+classdef (SharedTestFixtures={matlab.unittest.fixtures.PathFixture(...
+fullfile(getOr(dat.paths,'rigbox'), 'tests', 'fixtures'))})... % add 'fixtures' folder as test fixture
+ParamEditor_perfTest < matlab.perftest.TestCase
   
   properties
     % Figure visibility setting before running tests
@@ -17,11 +17,6 @@ classdef (SharedTestFixtures={...
     
   methods (TestClassSetup)
     function setup(testCase)
-      % Set our test flag to true.  This avoids errors and warnings from
-      % fixture functions.
-      setTestFlag(true);
-      testCase.addTeardown(@setTestFlag, false)
-      
       % Hide figures and add teardown function to restore settings
       testCase.FigureVisibleDefault = get(0,'DefaultFigureVisible');
       set(0,'DefaultFigureVisible','off');
@@ -231,7 +226,7 @@ classdef (SharedTestFixtures={...
         'Unexpected label colour')
       % Verify change in underlying param struct
       par = strcmpi(PE.Parameters.GlobalNames,...
-        erase(gLabels(idx).String, ' '));
+        strrep(gLabels(idx).String, ' ', ''));
       testCase.verifyEqual(PE.Parameters.Struct.(PE.Parameters.GlobalNames{par}), 666, ...
         'UI edit failed to update parameters struct')
             

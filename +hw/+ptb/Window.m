@@ -676,8 +676,6 @@ classdef Window < hw.Window
 
       % correct the data
       clock = circshift(clock,[ishift,0]);
-      upCrossings = find(diff( clock > 1 ) ==  1);
-      dnCrossings = find(diff( clock > 1 ) == -1);
       
       %% plot the data
       if makePlot
@@ -686,7 +684,10 @@ classdef Window < hw.Window
         
         figure; plot(tt,clock);
         ylabel('clock signal'); title('Clock');
-    
+        
+        upCrossings = find(diff( clock > 1 ) ==  1);
+        dnCrossings = find(diff( clock > 1 ) == -1);
+        
         figure; clf
         for iC = 1:length(upCrossings)
           plot(tt(upCrossings(iC))*[1 1],[0 5],'-', ...

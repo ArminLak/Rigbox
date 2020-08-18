@@ -71,13 +71,13 @@ classdef Timeline < handle
         DaqVendor = 'ni'
         % Device ID can be found with daq.getDevices()
         DaqIds = 'Dev1'
-        % Rate at which daq aquires data in Hz, see Rate
+        % rate at which daq aquires data in Hz, see Rate
         DaqSampleRate = 1000
-        % Determines the number of data samples to be processed each time,
+        % determines the number of data samples to be processed each time,
         % see Timeline.process(), constructor and
         % NotifyWhenDataAvailableExceeds
         DaqSamplesPerNotify
-        % Array of output classes, defining any signals you desire to be
+        % array of output classes, defining any signals you desire to be
         % sent from the daq. See Also HW.TLOUTPUT, HW.TLOUTPUTCLOCK
         Outputs = hw.TLOutputChrono
         % All configured inputs. 
@@ -87,25 +87,25 @@ classdef Timeline < handle
             'measurement', 'Voltage',...
             'terminalConfig', 'SingleEnded',...
             'axesScale', 1) % multiplicative vertical scaling for when live plotting the input
-        % Array of inputs to record while tl is running
+        % array of inputs to record while tl is running
         UseInputs = {'chrono'}
-        % Currently pauses for at least 2 secs as 'hack' before stopping
+        % currently pauses for at least 2 secs as 'hack' before stopping
         % main DAQ session to allow
         StopDelay = 2
-        % Expected experiment time so data structure is initialised to
+        % expected experiment time so data structure is initialised to
         % sensible size (in secs)
         MaxExpectedDuration = 2*60*60
-        % Default data type for the acquired data array (i.e.
+        % default data type for the acquired data array (i.e.
         % Data.rawDAQData)
         AquiredDataType = 'double'
         % If true, timeline is started by default (otherwise can be toggled
         % with the t key in expServer)
         UseTimeline matlab.lang.OnOffSwitchState = 'off'
-        % If true the data are plotted as the data are aquired
+        % if true the data are plotted as the data are aquired
         LivePlot matlab.lang.OnOffSwitchState = 'off'
-        % Figure position in normalized units, default is full screen
+        % figure position in normalized units, default is full screen
         FigureScale = [0 0 1 1]
-        % If true the data buffer is written to disk as they're aquired NB:
+        % if true the data buffer is written to disk as they're aquired NB:
         % in the future this will happen by default
         WriteBufferToDisk matlab.lang.OnOffSwitchState = 'off'
     end
@@ -120,17 +120,17 @@ classdef Timeline < handle
     end
     
     properties (Transient, Access = protected)
-        % Holds the listener for 'DataAvailable', see DataAvailable and
+        % holds the listener for 'DataAvailable', see DataAvailable and
         % Timeline.process()
         Listener
-        % The last timestamp returned from the daq during the DataAvailable
+        % the last timestamp returned from the daq during the DataAvailable
         % event.  Used to check sampling continuity, see tl.process()
         LastTimestamp
-        % The expRef string.  See tl.start()
+        % the expRef string.  See tl.start()
         Ref
-        % An Alyx object instance used for file registration.  See
-        % tl.start()
-        AlyxInstance Alyx
+        % a struct contraining the Alyx token, user and url for ile
+        % registration.  See tl.start()
+        AlyxInstance
         % A structure containing timeline data
         Data
         % A figure handle for plotting the aquired data as it's processed
