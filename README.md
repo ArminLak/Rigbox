@@ -20,49 +20,6 @@ Below are the **minimum** computer hardware specs:
 
 For most experiments, typical, contemporary, factory-built desktops running Windows 10 with dedicated graphics cards should suffice. Specific requirements of a SC will depend on the complexity of the experiment. For example, running an audio-visual integration task on multiple screens will require quality graphics and sound cards. SCs may additionally require an i/o device to communicate with external rig hardware, of which currently only National Instruments Data Acquisition Devices (NI-DAQs, e.g. NI-DAQ USB 6211) are supported.
 
-<<<<<<< HEAD
-0. It is highly recommended to install Rigbox via git. If not already downloaded and installed, install [git](https://git-scm.com/download/win) (and the included minGW software environment and Git Bash MinTTY terminal emulator). After installing, launch the Git Bash terminal. 
-1. To install Rigbox, run the following commands in the Git Bash terminal to clone the repository from GitHub to your local machine.  (* *Note*: It is *not* recommended to clone directly into the MATLAB folder)
-```
-git clone --recurse-submodules https://github.com/arminlak/Rigbox
-```
-2. Open MATLAB and run `addRigboxPaths.m` then restart the program.  *Note*: Do __not__ add all Rigbox folders and subfolders to the paths! 
-3. Set the correct paths on both computers by following the instructions in the '/docs/setup/paths_config' file.
-4. On the stimulus computer, set the hardware configuration by following the instructions in the '/docs/setup/hardware_config' file.
-5. To keep the submodules up to date, run the following in the Git Bash terminal (within the Rigbox directory):
-```
-git pull --recurse-submodules
-```
-
-### Running an experiment in MATLAB
-
-On the stimulus computer, run:
-> srv.expServer
-
-On the master computer, run:
-> mc
-
-This opens the MC GUI for selecting a subject, experiment, and the SC on which to run the experiment. The MC GUI also allows for editing some experimental parameters and logging into the Alyx database. To launch the experiment on the selected SC, press 'Start'.
-
-## Code organization
-
-Below is a list of Rigbox's subdirectories and an overview of their respective contents.
-
-### +dat
-
-The "data" package contains code pertaining to the organization and logging of data. It contains functions that generate and parse unique experiment reference ids, and return file paths where subject data and rig configuration information is stored. Other functions include those that manage experimental log entries and parameter profiles. A nice metaphor for this package is a lab notebook.
-
-### +eui
-
-The "user interface" package contains code pertaining to the Rigbox user interface. It contains code for constructing the mc GUI (MControl.m), and for plotting live experiment data or generating tables for viewing experiment parameters and subject logs. 
-
-This package is exclusively used by the master computer.
-
-### +exp
-=======
-### Software
->>>>>>> cortexlab/master
-
 Below are the **minimum** computer software dependencies that must be installed before installing Rigbox:
 
 * OS: 64 Bit Windows 10
@@ -82,7 +39,7 @@ Below we provide brief instructions for installing Rigbox via Git. These instruc
 
 1. In your git terminal, run:
 ```
-git clone --recurse-submodules https://github.com/cortex-lab/Rigbox
+git clone --recurse-submodules https://github.com/arminlak/Rigbox
 ```
 
 2. In MATLAB, navigate to the Rigbox root directory (where Rigbox was cloned), and run:
