@@ -82,6 +82,12 @@ classdef SqueakExpPanel < eui.ExpPanel
       %       fprintf('processing %i signal updates\n', length(updates));
       for ui = 1:length(updates)
         signame = updates(ui).name;
+
+        % ETHAN ADDED 2026 02 08: Hide analysis-only signals from GUI
+        if strncmp(signame, 'events.hide_', numel('events.hide_'))
+          continue
+        end
+        
         switch signame
           case {'inputs.wheel', 'pars'}
           otherwise
