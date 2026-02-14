@@ -162,11 +162,11 @@ classdef DaqController < handle
           queue(obj, channelNames(analogueChannelsIdx), waveforms(analogueChannelsIdx));
           if foreground
             startForeground(obj.DaqSession);
+            readyWait(obj);
+            obj.DaqSession.release;
           else
             startBackground(obj.DaqSession);
           end
-          readyWait(obj);
-          obj.DaqSession.release;
         elseif any(~analogueChannelsIdx)
             waveforms = waveforms(~analogueChannelsIdx);
             for n = 1:length(waveforms)
