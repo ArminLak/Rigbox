@@ -11,6 +11,7 @@ classdef LedPulsePasser < hw.ControlSignalGenerator
 
   properties
     ClosedValue (1,1) double = 0
+    EndPaddingSeconds (1,1) double = 3
 
     % Safety limits
     MinVoltage  (1,1) double = 0
@@ -75,8 +76,8 @@ classdef LedPulsePasser < hw.ControlSignalGenerator
       samples = (openV - obj.ClosedValue) .* gate01 + obj.ClosedValue;
 
       % ensure return to baseline
-      samples = [samples; obj.ClosedValue];
-    end
+      padSamples = round(obj.EndPaddingSeconds * sampleRate);
+      samples = [samples; repmat(obj.ClosedValue, padSamples, 1)];    end
   end
 
   methods (Access = private)
