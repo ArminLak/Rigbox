@@ -1,4 +1,4 @@
-classdef LedPulsePasser < hw.ControlSignalGenerator
+classdef LEDpulseSwitcher < hw.ControlSignalGenerator
   % HW.LEDPULSEPASSSER Pulse Generator based on pulseSwitcher, but takes a
   % power input which determines analog voltage input to LED driver
   %
