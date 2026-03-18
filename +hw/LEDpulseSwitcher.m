@@ -29,7 +29,7 @@ classdef LEDpulseSwitcher < hw.ControlSignalGenerator
   end
 
   methods
-    function obj = LedPulsePasser(duration, nPulses, freq, calibration)
+    function obj = LEDpulseSwitcher(duration, nPulses, freq, calibration)
       obj.DefaultValue = obj.ClosedValue;
 
       if nargin >= 3 && ~isempty(duration) && ~isempty(nPulses) && ~isempty(freq)
@@ -43,7 +43,7 @@ classdef LEDpulseSwitcher < hw.ControlSignalGenerator
 
     function samples = waveform(obj, sampleRate, command)
       assert(~isempty(obj.ParamsFun), ...
-        'LedPulsePasser: ParamsFun is empty. Set timing in hardware.');
+        'LEDpulsePasser: ParamsFun is empty. Set timing in hardware.');
 
       [dt, npulses, f] = obj.ParamsFun(command);
 
