@@ -217,18 +217,30 @@ classdef ParamEditor < handle
       %  and notifies listeners of the change via the Changed event.
       %
       % See also EUI.FIELDPANEL/ONEDIT, EUI.CONDITIONPANEL/ONEDIT
-      if nargin < 4; row = 1; end
-      currValue = obj.Parameters.Struct.(name)(:,row);
+      if nargin < 4
+        row = 1;
+      end
+      isTrial = obj.Parameters.isTrialSpecific(name);
+      if isTrial
+        currValue = obj.Parameters.Struct.(name)(:,row);
+      else
+        currValue = obj.Parameters.Struct.(name);
+      end
       if iscell(currValue)
-        % cell holders are allowed to be different types of value
         newValue = obj.controlValue2Param(currValue{1}, value, true);
-        obj.Parameters.Struct.(name){:,row} = newValue;
+        if isTrial
+          obj.Parameters.Struct.(name){:,row} = newValue;
+        else
+          obj.Parameters.Struct.(name) = {newValue};
+        end
       else
         newValue = obj.controlValue2Param(currValue, value);
         if ischar(newValue)
-           obj.Parameters.Struct.(name) = newValue;
+          obj.Parameters.Struct.(name) = newValue;
+        elseif isTrial
+          obj.Parameters.Struct.(name)(:,row) = newValue;
         else
-           obj.Parameters.Struct.(name)(:,row) = newValue;
+          obj.Parameters.Struct.(name) = newValue;
         end
       end
       notify(obj, 'Changed');
