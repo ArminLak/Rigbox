@@ -66,8 +66,16 @@ classdef designerWaveform < hw.ControlSignalGenerator
         scale = 1;
       end
 
-      validateattributes(idx, {'numeric'}, {'scalar','real','finite','>=',1});
+      % Treat idx == 0 as "do nothing / closed output".
+      % This is needed because SignalsExp may pad unused DAQ outputs with zeros.
+      validateattributes(idx, {'numeric'}, {'scalar','real','finite','>=',0});
       validateattributes(scale, {'numeric'}, {'scalar','real','finite','>=',0});
+
+      if idx == 0 || scale == 0
+        padSamples = round(obj.EndPaddingSeconds * sampleRate);
+        samples = repmat(obj.ClosedValue, max(padSamples, 1), 1);
+        return
+      end
 
       idx = floor(idx);
 
