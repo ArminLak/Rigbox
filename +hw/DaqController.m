@@ -168,12 +168,26 @@ classdef DaqController < handle
             startBackground(obj.DaqSession);
           end
         elseif any(~analogueChannelsIdx)
-            waveforms = waveforms(~analogueChannelsIdx);
-            for n = 1:length(waveforms)
-              digitalValues = waveforms{n};
-              for m = 1:length(digitalValues)
-                obj.DigitalDaqSession.outputSingleScan(digitalValues(m));
-              end
+            digIdxAll  = ~obj.AnalogueChannelsIdx;   % digital channels, full rig width
+            digIdxCall = ~analogueChannelsIdx;       % digital channels present in *this* call
+            changedIsDigital = digIdxCall(end);      % the changed channel is always the last column
+        
+            if isempty(obj.CurrValue)
+                lastVals = zeros(1, obj.NumChannels);
+            else
+                lastVals = obj.CurrValue;
+            end
+        
+            if changedIsDigital
+                changedWaveform = waveforms{end};
+                nSamples = numel(changedWaveform);
+                digSamples = repmat(lastVals(digIdxAll), nSamples, 1);
+                digSamples(:, sum(digIdxAll(1:n))) = changedWaveform(:);
+                for m = 1:nSamples
+                    obj.DigitalDaqSession.outputSingleScan(digSamples(m,:));
+                end
+                lastVals(digIdxAll) = digSamples(end,:);
+                obj.CurrValue = lastVals;
             end
         end
       end
