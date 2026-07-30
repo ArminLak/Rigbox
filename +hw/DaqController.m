@@ -151,14 +151,17 @@ classdef DaqController < handle
           end
           waveforms{ii} = gen(ii).waveform(rate, v);
         end
-        if obj.DaqSession.IsRunning
-          % if a daq operation is in progress, stop it, and set its output
-          % to the default value
-          reset(obj);
-        end
         channelNames = obj.ChannelNames(1:n);
         analogueChannelsIdx = obj.AnalogueChannelsIdx(1:n);
         if any(analogueChannelsIdx)&&any(any(values(:,analogueChannelsIdx)~=0))
+          if obj.DaqSession.IsRunning
+            % Another analogue waveform is already streaming - stop it before
+            % queueing this one. Scoped to genuine analogue commands only: a
+            % purely digital command (e.g. the PMT shutter TTL) must never
+            % touch the analogue session, or it aborts whatever analogue
+            % waveform (e.g. the LED command) is currently playing.
+            reset(obj);
+          end
           queue(obj, channelNames(analogueChannelsIdx), waveforms(analogueChannelsIdx));
           if foreground
             startForeground(obj.DaqSession);
