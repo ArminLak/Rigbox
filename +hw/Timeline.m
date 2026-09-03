@@ -488,7 +488,12 @@ classdef Timeline < handle
             end
             
             % save tl to all paths
-            superSave(obj.Data.savePaths, struct('Timeline', obj.Data));
+            % NB: rawDAQData can easily exceed the 2GB per-variable limit
+            % of the default MAT-file format (v7) at high sample rates /
+            % long sessions, in which case save() throws partway through
+            % and leaves an empty/corrupt file. '-v7.3' (HDF5-based) has
+            % no such limit.
+            superSave(obj.Data.savePaths, struct('Timeline', obj.Data), '-v7.3');
             
             %  write hardware info to a JSON file for compatibility with database
             fid = fopen(fullfile(fileparts(obj.Data.savePaths{2}), 'TimelineHW.json'), 'w');
